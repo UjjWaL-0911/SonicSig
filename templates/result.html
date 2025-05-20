@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recognition Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Recognition Result</h1>
+        
+        <div class="result-section">
+            {% if result.match_found %}
+                <h2>Match Found!</h2>
+                <p>Song: {{ result.song_name }}</p>
+                <p>Confidence: {{ result.confidence }}</p>
+                <p>Number of matches: {{ result.matches }}</p>
+            {% else %}
+                <h2>No Match Found</h2>
+                <p>{{ result.message }}</p>
+            {% endif %}
+        </div>
+
+        <div class="navigation">
+            <a href="{{ url_for('index') }}" class="button">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Song Recognizer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>SonicSig</h1>
+        
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <!-- Upload Reference Songs -->
+        <div class="section">
+            <h2>Add Reference Songs</h2>
+            <form action="{{ url_for('upload_reference') }}" method="post" enctype="multipart/form-data">
+                <input type="file" name="reference_file" accept=".mp3,.wav">
+                <input type="submit" value="Upload Reference Song">
+            </form>
+        </div>
+
+        <!-- Current Database -->
+        <div class="section">
+            <h2>Current Database</h2>
+            {% if database_songs %}
+                <ul>
+                {% for song in database_songs %}
+                    <li>{{ song }}</li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>No songs in database</p>
+            {% endif %}
+        </div>
+
+        <!-- Query Song Upload -->
+        <div class="section">
+            <h2>Recognize Song</h2>
+            <form action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" accept=".mp3,.wav">
+                <input type="submit" value="Recognize Song">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
